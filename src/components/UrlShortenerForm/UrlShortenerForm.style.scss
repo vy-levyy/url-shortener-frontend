@@ -1,0 +1,46 @@
+@import "src/styles/mixins";
+@import "src/styles/colors";
+
+.url-form {
+  display: flex;
+  flex-direction: column;
+  background-color: $background-color;
+  width: 100%;
+  height: fit-content;
+  padding: 20px;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  &__input-line {
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  &__input {
+    margin-top: 10px;
+  }
+
+  &__error {
+    color: $red;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  &__submit-button {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  @include md {
+    &__input-line {
+      flex-direction: row;
+    }
+
+    &__submit-button {
+      margin-left: 20px;
+      width: 300px;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.links-list {
+  &__item {
+    justify-content: space-between;
+  }
+
+  &__item-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+  }
+}
