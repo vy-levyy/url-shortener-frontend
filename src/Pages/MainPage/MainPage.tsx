@@ -1,56 +1,51 @@
-import React from "react";
-import { LinksList } from "../../components";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback, useEffect } from "react";
+import { LinksList, PaginationLinksList } from "../../components";
 import { PageHeader } from "../../components/PageHeader";
 import { UrlShortenerForm } from "../../components/UrlShortenerForm";
-import { ILink } from "../../models";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { fetchShortUrls } from "../../redux/thunks";
 import "./MainPage.style.scss";
 
-const links: ILink[] = [
-  {
-    id: "1",
-    source: "https://google.com/",
-    target: "https://google.com/",
-    clicks: 2,
-  },
-  {
-    id: "2",
-    source: "https://google.com/",
-    target: "https://google.com/",
-    clicks: 5,
-  },
-  {
-    id: "3",
-    source: "https://google.com/",
-    target: "https://google.com/",
-    clicks: 0,
-  },
-  {
-    id: "4",
-    source: "https://google.com/",
-    target: "https://google.com/",
-    clicks: 1,
-  },
-  {
-    id: "5",
-    source: "https://google.com/",
-    target: "https://google.com/",
-    clicks: 2,
-  },
-];
-
 export const MainPage = () => {
+  const dispatch = useAppDispatch();
+  const links = useAppSelector((state) => state.urls.data);
+  const pagination = useAppSelector((state) => state.urls.pagination);
+
+  const myLinks = useAppSelector((state) => state.urls.addedUrls);
+
+  const page = pagination?.page || 1;
+  const totalPages = pagination?.totalPages || 1;
+
+  useEffect(() => {
+    dispatch(fetchShortUrls({ page: 1 }));
+  }, []);
+
+  const onPageClick = useCallback((page: number) => {
+    dispatch(fetchShortUrls({ page }));
+  }, []);
+
   return (
-    <div className="page">
+    <div className="main-page">
       <PageHeader>Сокращатель</PageHeader>
-      <main className="page__main">
-        {/* <div className="page__main-content"> */}
-          <section className="page__column">
-            <UrlShortenerForm />
-          </section>
-          <section className="page__column">
-            <LinksList links={links} className="page__list" />
-          </section>
-        {/* </div> */}
+      <main className="main-page__main">
+        <section className="main-page__column">
+          <UrlShortenerForm className="main-page__url-form" />
+          {myLinks.length > 0 && (
+            <div className="main-page__my-links-list-container">
+              <LinksList links={myLinks} header="Мои ссылки" numByIndex />
+            </div>
+          )}
+        </section>
+        <section className="main-page__column">
+          <PaginationLinksList
+            links={links}
+            header="Список ссылок"
+            page={page}
+            totalPages={totalPages}
+            onClick={onPageClick}
+          />
+        </section>
       </main>
     </div>
   );

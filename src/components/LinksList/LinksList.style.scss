@@ -1,12 +1,79 @@
+@use "src/styles/colors";
+@use "src/styles/mixins";
+
 .links-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
   &__item {
-    justify-content: space-between;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 1fr 10fr 1fr;
+    grid-template-areas:
+      "id source ."
+      ". target clicks";
+    padding: 20px 10px;
+    font-size: 1rem;
+
+    &_not-even {
+      background-color: colors.$background-color;
+      border-radius: 5px;
+      border: 1px solid colors.$gray100;
+    }
   }
 
-  &__item-content {
-    display: flex;
-    justify-content: space-between;
+  &__container {
     width: 100%;
-    padding: 0 20px;
+  }
+
+  &__header {
+    margin-bottom: 12px;
+  }
+
+  &__item-id,
+  &__item-source,
+  &__item-target,
+  &__item-clicks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__item-id {
+    grid-area: id;
+  }
+
+  &__item-source {
+    grid-area: source;
+    min-width: 150px;
+  }
+
+  &__item-target {
+    grid-area: target;
+    min-width: 150px;
+  }
+
+  &__item-clicks {
+    grid-area: clicks;
+    background-color: colors.$blue;
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+  }
+
+  &__link {
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @include mixins.sm {
+    &__item {
+      grid-template-columns: 1fr 10fr 10fr 1fr;
+      grid-template-areas: "id source target clicks";
+    }
   }
 }

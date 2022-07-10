@@ -1,16 +1,20 @@
-@import "src/styles/mixins";
-@import "src/styles/colors";
+@use "src/styles/mixins";
+@use "src/styles/colors";
 
 .url-form {
   display: flex;
   flex-direction: column;
-  background-color: $background-color;
+  background-color: colors.$background-color;
   width: 100%;
   height: fit-content;
   padding: 20px;
-  border: 1px solid $border-color;
+  border: 1px solid colors.$border-color;
   border-radius: 5px;
   box-sizing: border-box;
+
+  &__input-title {
+    font-size: 1rem;
+  }
 
   &__input-line {
     display: flex;
@@ -23,9 +27,9 @@
   }
 
   &__error {
-    color: $red;
+    color: colors.$red;
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 0.9rem;
   }
 
   &__submit-button {
@@ -33,7 +37,7 @@
     width: 100%;
   }
 
-  @include md {
+  @include mixins.md {
     &__input-line {
       flex-direction: row;
     }

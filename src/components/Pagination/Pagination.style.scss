@@ -1,0 +1,35 @@
+@use "src/styles/colors";
+
+.pagination {
+  &__content {
+    display: flex;
+    margin: 0 -3px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    font-size: 1rem;
+  }
+
+  &__page {
+    @extend .pagination__item;
+    margin: 0 3px;
+    background-color: colors.$background-color;
+    border: 1px solid colors.$gray100;
+    border-radius: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__dots {
+    @extend .pagination__item;
+    align-items: flex-end;
+    padding-bottom: 3px;
+  }
+}
