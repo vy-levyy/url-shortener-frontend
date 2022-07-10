@@ -23,7 +23,6 @@ export const urlsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchShortUrls.fulfilled, (state, action) => {
-      console.log("### action.payload.data ->", action.payload.data);
       state.data = action.payload.data.short_urls.data.map((link: any) => {
         return {
           ...link,
@@ -40,7 +39,7 @@ export const urlsSlice = createSlice({
 
     builder.addCase(shortenUrl.fulfilled, (state, action) => {
       const link: any = action.payload.data.shorten_url.short_url;
-      console.log('### action ->', action);
+
       state.addedUrls.push({
         id: link.id,
         source: link.url,

@@ -27,7 +27,6 @@ export const useUrlShortenerForm = (): IReturn => {
   }, [error]);
 
   const onSubmit = (event: FormEvent) => {
-    console.log('### -> event');
     if (validateUrl(url)) {
       setUrl('');
       dispatch(shortenUrl({ url }));
