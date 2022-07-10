@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+// import Echo from "laravel-echo";
 import { useCallback, useEffect } from "react";
 import { LinksList, PaginationLinksList } from "../../components";
 import { PageHeader } from "../../components/PageHeader";
 import { UrlShortenerForm } from "../../components/UrlShortenerForm";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { fetchShortUrls } from "../../redux/thunks";
+// import { io } from 'socket.io-client';
 import "./MainPage.style.scss";
 
 export const MainPage = () => {
@@ -19,6 +21,21 @@ export const MainPage = () => {
 
   useEffect(() => {
     dispatch(fetchShortUrls({ page: 1 }));
+
+    // не работает, event не приходит
+    
+    // const echo = new Echo({
+    //   broadcaster: 'socket.io',
+    //   host: 'http://test-task.profilancegroup-tech.com:6002',
+    //   client: io,
+    // });
+
+    // echo
+    //   .channel('btti_database_short_urls')
+    //   .listen('new_click', (event: any) => {
+    //     console.log('### event ->', event);
+    //     // redux action...
+    //   });
   }, []);
 
   const onPageClick = useCallback((page: number) => {
